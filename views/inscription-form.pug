@@ -1,0 +1,45 @@
+extend _layout
+
+block content
+    .mt-3
+        form(method="post" enctype="multipart/form-data")
+            fieldset
+                legend Inscription
+
+                .row.mb-2
+                    .col 
+                        label.form-label Prénom 
+                        input.form-control(type="text", name="firstName")
+                    .col
+                        label.form-label Nom 
+                        input.form-control(type="text", name="lastName")
+
+                .row.mb-2
+                    .col 
+                        label.form-label Email 
+                        input.form-control(type="text", name="email")
+                    .col
+                        label.form-label Confirmation Email 
+                        input.form-control(type="text", name="emailConfirm")
+
+                .row.mb-2
+                    .col 
+                        label.form-label Mot de passe 
+                        input.form-control(type="password", name="pass")
+                    .col
+                        label.form-label Confirmation Mot de passe 
+                        input.form-control(type="password", name="passConfirm")
+
+                .row.mb-2
+                    .col
+                        label.form-label Votre photo 
+                        input.form-control(type="file", name="photo")
+                
+                .row.mb-2
+                    .col
+                        label.form-label Bio 
+                        input.form-control(type="textarea", name="bio")
+                
+                .row.mb-2
+                    .col
+                        button.btn.btn-sm.btn-primary.w-100(type="submit") Valider

@@ -1,0 +1,29 @@
+doctype html 
+html
+    head
+        block title
+            title= pageTitle
+
+        block css
+            link(rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type="text/css")
+            style. 
+                .app-bg {background-color: #FFEEDD}
+
+    body.container-fluid.p-4
+        .row.justify-content-center
+            // Contenu de l'application
+            .col-md-8.p-2.app-bg
+
+                - const messages = getMessages()
+
+                if messages && messages.info
+                    .alert.alert-info
+                        each message in messages.info 
+                            p= message
+
+                if messages && messages.danger
+                    .alert.alert-danger
+                        each message in messages.danger 
+                            div= message 
+
+                block content

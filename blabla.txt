@@ -1,0 +1,92 @@
+{% for key, product in products %}
+    <p>{key} = {product} </p> 
+{% endfor%}
+
+----------------------
+
+#[Routes('/home')]
+class HomeController extends AbstractController
+{
+    #[Route('/list', name: 'home_list']
+    public function list(): Response
+    {
+        return $this->json([message => `liste_messages`]);
+    }
+
+    #[Route('/details', name: 'home_details']
+    public function details(): Response
+    {
+        return $this->json([message => `info_message`]);
+    }
+
+    #[Route('/hello/{name}', name: 'home_details']
+    public function details(string $name): Response
+    {
+        return new Response('Hey'. $name);
+    }
+}
+
+#[Route('/details', name: 'client_details']
+    public function details(Request $request, ClientRepository $clientRepository): Response
+    {
+        $id = $request->query->get('id');
+
+        $client = $clientRepository->findOneById($id);
+
+        return $this->render('client/details.html.twig', ['client' => $client])
+    }
+
+
+#[ORM\Entity(repositoryClass: ClientRepository::class)]
+class Client
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private $id;
+
+    #[ORM\Column(type: 'string', length: 20)]
+    private $firstName;
+
+    #[ORM\Column(type: 'string', length: 20)]
+    private $lastName;
+
+    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'pizzas')]
+    private $ingredients;
+}
+
+#[ORM\Entity(repositoryClass: ClientRepository::class)]
+class Client
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private $id;
+
+    #[ORM\Column(type: 'string', length: 20)]
+    private $firstName;
+
+    #[ORM\Column(type: 'string', length: 20)]
+    private $lastName;
+
+    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'clients')]
+    private $commandes;
+}
+
+#[ORM\Entity(repositoryClass: CommandeRepository::class)]
+class Commande
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private $id;
+
+    #[ORM\Column(type: 'datetime']
+    private $date;
+
+    #[ORM\Column(type: 'integer']
+    private $price;
+
+    #[ORM\OneToMany(targetEntity: Client::class, inversedBy: 'commandes')]
+    private $clients;
+}
